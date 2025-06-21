@@ -1,51 +1,67 @@
-import React, { useState } from 'react';
-import { Search, User, Menu, X } from 'lucide-react';
+import React, { useState, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
+import { FiMenu, FiX } from 'react-icons/fi';
 
-const Nav = () => {
-  const [activeLink, setActiveLink] = useState('Home');
-  const [isSearchOpen, setIsSearchOpen] = useState(false);
-  const [isMenuOpen, setIsMenuOpen] = useState(false);
+const NavBar = () => {
+  const [isOpen, setIsOpen] = useState(false);
+  const [scrolled, setScrolled] = useState(false);
 
-  const links = [
-    { name: 'Home', url: '/' },
-    { name: 'Rent', url: '/rent' },
-    { name: 'Services', url: '/services' },
-    { name: 'News', url: '/news' },
+  // Handle scroll effect
+  useEffect(() => {
+    const handleScroll = () => {
+      if (window.scrollY > 10) {
+        setScrolled(true);
+      } else {
+        setScrolled(false);
+      }
+    };
+
+    window.addEventListener('scroll', handleScroll);
+    return () => {
+      window.removeEventListener('scroll', handleScroll);
+    };
+  }, []);
+
+  const navLinks = [
+    { name: 'Insurance Products', url: '#' },
+    { name: 'Renew Your Policy', url: '#' },
+    { name: 'Claim', url: '#' },
+    { name: 'Support', url: '#' },
+    { name: 'Learn', url: '#' },
   ];
 
   return (
-    <motion.nav 
-      initial={{ y: -100 }}
-      animate={{ y: 0 }}
-      className="w-full top-0 z-50 shadow-sm bg-white"
+    <motion.nav
+      initial={{ opacity: 0, y: -20 }}
+      animate={{ opacity: 1, y: 0 }}
+      transition={{ duration: 0.5 }}
+      className={`fixed w-full z-50 transition-all duration-300 ${
+        scrolled ? ' bg-black/90 shadow-lg' : ''
+      }`}
     >
-      <div className="max-w-[105rem] mx-auto px-4 relative">
+      <div className="max-w-[105rem] mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex items-center justify-between h-16">
           {/* Logo */}
-          <motion.div 
+          <motion.div
+            className="flex-shrink-0"
             whileHover={{ scale: 1.05 }}
-            className="flex items-center"
+            transition={{ type: 'spring', stiffness: 300 }}
           >
-            <div className="flex items-center gap-2">
-              <div className="h-10 w-10 rounded-full bg-white flex justify-center items-center shadow-md">
-                <div className='w-5 h-5 bg-blue-600 rotate-45' />
-              </div>
-              <span className="font-bold text-2xl">LONA</span>
-            </div>
+            <a href="#" className="flex items-center">
+              <div className="h-8 w-8 rounded-full bg-gradient-to-r from-pink-500 to-orange-500 mr-2"></div>
+              <span className="font-bold text-white text-xl">Polysure</span>
+            </a>
           </motion.div>
 
-          {/* Desktop Nav Links */}
-          <div className="hidden md:flex items-center gap-4">
-            <div className="bg-white p-1 rounded-md flex items-center space-x-4">
-              {links.map((link) => (
+          {/* Desktop Navigation */}
+          <div className="hidden md:block">
+            <div className="ml-10 flex items-center space-x-8">
+              {navLinks.map((link) => (
                 <motion.a
                   key={link.name}
                   href={link.url}
-                  whileHover={{ scale: 1.05 }}
-                  onClick={() => setActiveLink(link.name)}
-                  className={`px-4 py-2 rounded-md text-sm font-medium transition-colors
-                    ${activeLink === link.name ? 'bg-gray-200 shadow-sm' : 'text-gray-600 hover:text-gray-900'}`}
+                  whileHover={{ scale: 1.05, color: '#f97316' }}
+                  className="text-gray-300 hover:text-white px-1 py-2 text-sm font-medium transition-colors"
                 >
                   {link.name}
                 </motion.a>
@@ -53,105 +69,81 @@ const Nav = () => {
             </div>
           </div>
 
-          {/* Right Section */}
-          <div className="hidden md:flex items-center gap-4">
-            <div className="relative">
-              <motion.button
-                whileHover={{ scale: 1.05 }}
-                onClick={() => setIsSearchOpen(!isSearchOpen)}
-                className="p-2 hover:bg-gray-100 rounded-full"
-              >
-                <Search className="w-5 h-5" />
-              </motion.button>
-
-              {isSearchOpen && (
-                <motion.div 
-                  initial={{ opacity: 0, y: -10 }}
-                  animate={{ opacity: 1, y: 0 }}
-                  exit={{ opacity: 0, y: -10 }}
-                  className="absolute top-12 right-0 bg-white shadow-lg p-4 rounded-lg"
-                >
-                  <input
-                    type="text"
-                    placeholder="Search properties..."
-                    className="w-64 p-2 border rounded-lg"
-                    autoFocus
-                  />
-                </motion.div>
-              )}
-            </div>
-
-            <motion.a
-              href="/contact"
-              whileHover={{ scale: 1.05 }}
-              className="flex items-center gap-2 bg-black text-white px-4 py-2 rounded-full"
-            >
-              Contact Us
-              <span className="ml-2">→</span>
-            </motion.a>
-
+          {/* CTA Buttons */}
+          <div className="hidden md:flex items-center space-x-4">
             <motion.button
               whileHover={{ scale: 1.05 }}
-              className="p-2 hover:bg-gray-100 rounded-full"
+              className="px-4 py-2 rounded-full text-white bg-gray-800 hover:bg-gray-700 transition-colors text-sm font-medium"
             >
-              <User className="w-5 h-5" />
+              Sign In
+            </motion.button>
+            <motion.button
+              whileHover={{ scale: 1.05 }}
+              whileTap={{ scale: 0.95 }}
+              className="px-4 py-2 rounded-full text-black bg-gradient-to-r from-yellow-400 to-orange-500 hover:from-yellow-500 hover:to-orange-600 transition-colors text-sm font-medium"
+            >
+              Get Started
             </motion.button>
           </div>
 
           {/* Mobile menu button */}
-          <button
-            className="md:hidden p-2"
-            onClick={() => setIsMenuOpen(!isMenuOpen)}
-          >
-            {isMenuOpen ? <X className="w-6 h-6" /> : <Menu className="w-6 h-6" />}
-          </button>
-        </div>
-
-        {/* Mobile Menu */}
-        <AnimatePresence>
-          {isMenuOpen && (
-            <motion.div
-              key="mobile-menu"
-              initial={{ opacity: 0, y: -20 }}
-              animate={{ opacity: 1, y: 0 }}
-              exit={{ opacity: 0, y: -20 }}
-              transition={{ type: 'tween', duration: 0.3 }}
-              className="md:hidden absolute top-16 left-0 right-0 bg-white border-t z-40 shadow-md"
+          <div className="md:hidden flex items-center">
+            <motion.button
+              whileTap={{ scale: 0.9 }}
+              onClick={() => setIsOpen(!isOpen)}
+              className="text-gray-300 hover:text-white focus:outline-none p-2"
             >
-              <div className="px-4 py-2">
-                {links.map((link) => (
-                  <a
-                    key={link.name}
-                    href={link.url}
-                    className="block px-4 py-3 text-gray-700 hover:bg-gray-50 rounded-md"
-                    onClick={() => {
-                      setActiveLink(link.name);
-                      setIsMenuOpen(false);
-                    }}
-                  >
-                    {link.name}
-                  </a>
-                ))}
-                <div className="mt-4 p-2">
-                  <input
-                    type="text"
-                    placeholder="Search properties..."
-                    className="w-full p-2 border rounded-lg"
-                  />
-                </div>
-                <a
-                  href="/contact"
-                  className="block mt-4 w-full text-center bg-black text-white px-4 py-2 rounded-full"
-                >
-                  Contact Us
-                </a>
-              </div>
-            </motion.div>
-          )}
-        </AnimatePresence>
+              {isOpen ? (
+                <FiX className="h-6 w-6" />
+              ) : (
+                <FiMenu className="h-6 w-6" />
+              )}
+            </motion.button>
+          </div>
+        </div>
       </div>
+
+      {/* Mobile Navigation */}
+      <AnimatePresence>
+        {isOpen && (
+          <motion.div
+            initial={{ opacity: 0, height: 0 }}
+            animate={{ opacity: 1, height: 'auto' }}
+            exit={{ opacity: 0, height: 0 }}
+            transition={{ duration: 0.3 }}
+            className="md:hidden bg-black/95"
+          >
+            <div className="px-2 pt-2 pb-3 space-y-1 sm:px-3">
+              {navLinks.map((link) => (
+                <motion.a
+                  key={link.name}
+                  href={link.url}
+                  whileHover={{ scale: 1.03, x: 5 }}
+                  className="text-gray-300 hover:text-white block px-3 py-2 text-base font-medium rounded-md"
+                >
+                  {link.name}
+                </motion.a>
+              ))}
+              <div className="flex flex-col space-y-3 mt-4 px-3 pb-4">
+                <motion.button
+                  whileTap={{ scale: 0.95 }}
+                  className="px-4 py-2 rounded-full text-white bg-gray-800 hover:bg-gray-700 transition-colors text-sm font-medium"
+                >
+                  Sign In
+                </motion.button>
+                <motion.button
+                  whileTap={{ scale: 0.95 }}
+                  className="px-4 py-2 rounded-full text-black bg-gradient-to-r from-yellow-400 to-orange-500 hover:from-yellow-500 hover:to-orange-600 transition-colors text-sm font-medium"
+                >
+                  Get Started
+                </motion.button>
+              </div>
+            </div>
+          </motion.div>
+        )}
+      </AnimatePresence>
     </motion.nav>
   );
 };
 
-export default Nav;
+export default NavBar;

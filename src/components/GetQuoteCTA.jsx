@@ -142,7 +142,7 @@ const GetQuoteCTA = () => {
                 zIndex: 20,
                 transition: { type: "spring", stiffness: 300, damping: 30 }
               }}
-              className="absolute top-0 right-0 w-60 h-48 rounded-3xl overflow-hidden shadow-xl z-10"
+              className="absolute top-0 lg:right-0 w-60 h-48 rounded-3xl overflow-hidden shadow-xl z-10"
             >
               <ImageWithLoader
                 src="../assets/man-with-face-mask-looking-away.jpg"

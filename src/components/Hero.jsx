@@ -1,7 +1,7 @@
 import React, { useState, useRef } from 'react';
 import { motion, useInView } from 'framer-motion';
 import { ChevronLeft, ChevronRight, Shield } from 'lucide-react';
-
+import Nav from './Nav';
 const PolysureSplitDesign = () => {
   const [currentSlide, setCurrentSlide] = useState(0);
   const containerRef = useRef(null);
@@ -76,63 +76,7 @@ const PolysureSplitDesign = () => {
       </div>
 
       {/* Navigation Bar */}
-      <motion.nav
-        initial={{ y: -100 }}
-        animate={{ y: 0 }}
-        transition={{ duration: 0.6, ease: "easeOut" }}
-        className="relative z-50 px-6 lg:px-8 py-6"
-      >
-        <div className="max-w-[105rem] mx-auto flex justify-between items-center">
-          {/* Logo */}
-          <motion.div
-            whileHover={{ scale: 1.05 }}
-            className="flex items-center space-x-2"
-          >
-            <Shield className="w-8 h-8 text-orange-400" />
-            <span className="text-2xl font-bold text-white">Polysure</span>
-          </motion.div>
-
-          {/* Navigation Links */}
-          <div className="hidden lg:flex items-center space-x-8">
-            {['Insurance Products', 'Renew Your Policy', 'Claim', 'Support', 'Learn'].map((item, index) => (
-              <motion.a
-                key={item}
-                href="#"
-                initial={{ opacity: 0, y: -20 }}
-                animate={{ opacity: 1, y: 0 }}
-                transition={{ delay: index * 0.1 + 0.3 }}
-                whileHover={{ y: -2 }}
-                className="text-gray-300 hover:text-white transition-colors duration-200"
-              >
-                {item}
-              </motion.a>
-            ))}
-          </div>
-
-          {/* Auth Buttons */}
-          <div className="flex items-center space-x-4">
-            <motion.button
-              initial={{ opacity: 0, x: 20 }}
-              animate={{ opacity: 1, x: 0 }}
-              transition={{ delay: 0.8 }}
-              whileHover={{ scale: 1.05 }}
-              className="text-white hover:text-gray-300 transition-colors duration-200"
-            >
-              Sign In
-            </motion.button>
-            <motion.button
-              initial={{ opacity: 0, x: 20 }}
-              animate={{ opacity: 1, x: 0 }}
-              transition={{ delay: 0.9 }}
-              whileHover={{ scale: 1.05, boxShadow: "0 8px 25px rgba(251, 191, 36, 0.3)" }}
-              className="bg-yellow-400 hover:bg-yellow-500 text-black px-6 py-2 rounded-full font-medium transition-all duration-200"
-            >
-              Get Started
-            </motion.button>
-          </div>
-        </div>
-      </motion.nav>
-
+     <Nav />
       {/* Main Content */}
       <div className="relative z-10 max-w-[105rem] mx-auto px-6 lg:px-8 pt-12 pb-20">
         <motion.div
@@ -145,7 +89,7 @@ const PolysureSplitDesign = () => {
           <motion.div variants={itemVariants} className="space-y-8 text-white">
             <motion.h1
               variants={itemVariants}
-              className="text-5xl lg:text-6xl xl:text-7xl font-medium leading-tight"
+              className="md:text-5xl text-3xl lg:text-6xl xl:text-7xl font-medium leading-tight"
             >
               <motion.span
                 initial={{ opacity: 0, x: -50 }}
@@ -167,7 +111,7 @@ const PolysureSplitDesign = () => {
 
             <motion.p
               variants={itemVariants}
-              className="text-xl text-gray-300 leading-relaxed max-w-lg"
+              className="md:text-xl text-gray-300 leading-relaxed max-w-lg"
             >
               Start buying and managing your policies by digitally system. And create a comfortable and easy collection as per your need. Protect yourself and your lovedone.
             </motion.p>

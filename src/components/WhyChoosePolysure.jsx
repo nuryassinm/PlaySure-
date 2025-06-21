@@ -107,10 +107,10 @@ const WhyChoosePolysure = () => {
                 variants={itemVariants}
                 className="text-gray-300 leading-relaxed text-lg"
               >
-                Polysure is a digital-first insurer that uses <br />
-               technology to make life insurance simpler, <br />
-                smarter, and more rewarding. Quick <br /> stress-free claims, instant quotes from top <br />
-                 insurers and being present for you in the <br /> toughest of times.
+                Polysure is a digital-first insurer that uses 
+               technology to make life insurance simpler, 
+                smarter, and more rewarding. Quick  stress-free claims, instant quotes from top 
+                 insurers and being present for you in the toughest of times.
               </motion.p>
             </motion.div>
 
@@ -150,7 +150,7 @@ const WhyChoosePolysure = () => {
           {/* Features Cards */}
           <motion.div
             variants={containerVariants}
-            className="grid md:grid-cols-3 gap-6 lg:gap-8"
+            className="grid lg:grid-cols-3 gap-6 lg:gap-8"
           >
             {features.map((feature, index) => (
               <motion.div

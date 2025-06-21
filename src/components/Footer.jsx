@@ -77,7 +77,10 @@ const PolysureFooter = () => {
   };
 
   return (
-    <footer ref={containerRef} className="bg-black text-white relative overflow-hidden">
+    <footer ref={containerRef} className="bg-black text-white relative">
+      <div className=' absolute md:-top-80 right-96'>
+        <img src="../assets/corporate-business-people.jpg" className=' rounded-3xl md:w-[450px]  w-52 ' alt=" photo" />
+      </div>
       {/* Background Pattern */}
       <div className="absolute inset-0">
         <div className="absolute inset-0 opacity-5">
@@ -147,7 +150,7 @@ const PolysureFooter = () => {
             />
 
             {/* Footer Links and Newsletter */}
-            <div className="grid lg:grid-cols-5 gap-8 lg:gap-12 mb-12">
+            <div className="grid md:grid-cols-3 lg:grid-cols-5 gap-8 lg:gap-12 mb-12">
               {/* Brand and Contact Info */}
               <motion.div variants={itemVariants} className="lg:col-span-1">
                 <motion.div

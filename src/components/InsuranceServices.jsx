@@ -168,7 +168,7 @@ const InsuranceServices = () => {
           {/* Services Grid */}
           <motion.div
             variants={containerVariants}
-            className="grid md:grid-cols-3 gap-8 lg:gap-12 items-end"
+            className="grid lg:grid-cols-3 gap-8 space-y-3 lg:gap-12 items-end"
           >
             {services.map((service, index) => (
               <motion.div
